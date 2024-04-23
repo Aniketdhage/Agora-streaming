@@ -114,7 +114,7 @@ function AgoraHosting() {
       await joinChannel();
     }
     await client.publish(videoTrack);
-    await publishAudio();
+    await client.publish(audioTrack);
     setIsVideoPubed(true);
   };
 
