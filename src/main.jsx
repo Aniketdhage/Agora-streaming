@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
-import './index.css';
+// import './index.css';
 // import AgoraRTC from 'agora-rtc-sdk-ng';
 // import { AgoraRTCProvider } from 'agora-rtc-react';
 
