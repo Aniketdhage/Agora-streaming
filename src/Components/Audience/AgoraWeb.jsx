@@ -73,17 +73,18 @@ function AgoraAudience() {
     client.on('user-published', onUserPublish);
 
     await client.join(
-      // appid.current,
-      // channel.current,
-      // token.current || null,
-      'cd060fa6a6f74f60819fca04f7ff35e4',
-      'ljnhosting',
-      '007eJxTYOhk/PBzyxeOmOj2iz/sdbdPadpx99j3FdNX5B+S0pRm8lyuwJCcYmBmkJZolmiWZm6SZmZgYWiZlpxoYJJmnpZmbJpqsu6zZlpDICPDlUkCrIwMEAjiczHkZOVl5BeXZOalMzAAANBsJCM=',
-      null
+      // appid.current, - project app id
+      // channel.current, - any channel name - same for both side - host and audience
+      // token.current || null, - get token from agora project for channel and app
+      'cd060fa6a6f74f60819fca04f7ff35e4', // current app token
+      'ljnhosting', // channel name for broadcasting
+      '007eJxTYOhk/PBzyxeOmOj2iz/sdbdPadpx99j3FdNX5B+S0pRm8lyuwJCcYmBmkJZolmiWZm6SZmZgYWiZlpxoYJJmnpZmbJpqsu6zZlpDICPDlUkCrIwMEAjiczHkZOVl5BeXZOalMzAAANBsJCM=', // genarated token - expires in one day. add logic to generate token each day or each hosting time. make sure token be same as host and audience.
+      null // UID -- for specific user - add auth system to get and target each user and console or show them on screen
     );
     setIsJoined(true);
   };
 
+  // function to leave agora channel.
   const leaveChannel = async () => {
     setIsJoined(false);
     setIsAudioPubed(false);
@@ -91,7 +92,7 @@ function AgoraAudience() {
 
     await client.leave();
   };
-
+  // function to publish host to server and then targetted audience
   const onUserPublish = async (user, mediaType) => {
     if (mediaType === 'video') {
       const remoteTrack = await client.subscribe(user, mediaType);
