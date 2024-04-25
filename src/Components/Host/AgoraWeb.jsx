@@ -78,7 +78,7 @@ function AgoraHosting() {
       // token.current || null,
       'cd060fa6a6f74f60819fca04f7ff35e4',
       'ljnhosting',
-      '007eJxTYHj2IizW9cq2U2YPnTOL166/7r1jjpbn+hsOTxQ+tgc8bmtQYEhOMTAzSEs0SzRLMzdJMzOwMLRMS040MEkzT0szNk01MVBQT2sIZGQ4fn01KyMDBIL4XAw5WXkZ+cUlmXnpDAwA+7oklw==',
+      '007eJxTYOhk/PBzyxeOmOj2iz/sdbdPadpx99j3FdNX5B+S0pRm8lyuwJCcYmBmkJZolmiWZm6SZmZgYWiZlpxoYJJmnpZmbJpqsu6zZlpDICPDlUkCrIwMEAjiczHkZOVl5BeXZOalMzAAANBsJCM=',
       null
     );
     setIsJoined(true);
