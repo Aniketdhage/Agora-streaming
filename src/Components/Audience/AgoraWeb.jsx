@@ -78,7 +78,7 @@ function AgoraAudience() {
       // token.current || null, - get token from agora project for channel and app
       'cd060fa6a6f74f60819fca04f7ff35e4', // current app token
       'ljnhosting', // channel name for broadcasting
-      '007eJxTYOhk/PBzyxeOmOj2iz/sdbdPadpx99j3FdNX5B+S0pRm8lyuwJCcYmBmkJZolmiWZm6SZmZgYWiZlpxoYJJmnpZmbJpqsu6zZlpDICPDlUkCrIwMEAjiczHkZOVl5BeXZOalMzAAANBsJCM=', // genarated token - expires in one day. add logic to generate token each day or each hosting time. make sure token be same as host and audience.
+      '007eJxTYOhk/PBzyxeOmOj2iz/sdbdPadpx99j3FdNX5B+S0pRm8lyuwJCcYmBmkJZolmiWZm6SZmZgYWiZlpxoYJJmnpZmbJpqsu6zZlpDICPDlUkCrIwMEAjiczHkZOVl5BeXZOalMzAAANBsJCM=007eJxTYKieqSOlPnmdiJX/H87eE+Ger11eno3SqV5q4RixeAa7nJACQ3KKgZlBWqJZolmauUmamYGFoWVacqKBSZp5WpqxaapJsqx2WkMgI8OMW+uZGRkgEMTnYsjJysvILy7JzEtnYAAATLUftw==', // genarated token - expires in one day. add logic to generate token each day or each hosting time. make sure token be same as host and audience.
       null // UID -- for specific user - add auth system to get and target each user and console or show them on screen
     );
     setIsJoined(true);
