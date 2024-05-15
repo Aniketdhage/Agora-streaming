@@ -5,6 +5,13 @@ import viteLogo from '/vite.svg';
 import AgoraAudience from './Components/Audience/AgoraWeb';
 import AgoraHosting from './Components/Host/AgoraWeb';
 import SelectType from './Components/SelectType';
+import AgoraRTC, { AgoraRTCProvider, useRTCClient } from 'agora-rtc-react';
+
+import config from './agora-manager/config';
+import AgoraManager from './agora-manager/agoraManager';
+import ManagerHost from './agora-manager/ManagerHost/ManagerHost';
+import ManagerAudience from './agora-manager/ManagerAudience/ManagerAudience';
+
 // import './App.css';
 // import AgoraBroadcastStreaming from './Components/AgoraBroadcastStreaming';
 // import { LiveVideo } from './Components/LiveCheck';
@@ -12,6 +19,13 @@ import SelectType from './Components/SelectType';
 
 function App() {
   const [count, setCount] = useState(0);
+  const agoraEngine = useRTCClient(
+    AgoraRTC.createClient({
+      codec: 'vp8',
+      mode: 'rtc',
+      appId: 'cd060fa6a6f74f60819fca04f7ff35e4',
+    })
+  );
 
   return (
     // <>
@@ -22,9 +36,39 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<SelectType />} />
-        <Route path="/audience" element={<AgoraAudience />} />
-        <Route path="/host" element={<AgoraHosting />} />
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route
+          path="/audience"
+          element={
+            <AgoraRTCProvider client={agoraEngine}>
+              <AgoraAudience client={agoraEngine} />
+            </AgoraRTCProvider>
+          }
+        />
+
+        <Route
+          path="/host"
+          element={
+            <AgoraRTCProvider client={agoraEngine}>
+              <AgoraHosting client={agoraEngine} />
+            </AgoraRTCProvider>
+          }
+        />
+        <Route
+          path="/managerhost"
+          element={
+            <AgoraRTCProvider client={agoraEngine}>
+              <ManagerHost config={config} />
+            </AgoraRTCProvider>
+          }
+        />
+        <Route
+          path="/manageraudience"
+          element={
+            <AgoraRTCProvider client={agoraEngine}>
+              <ManagerAudience config={config} />
+            </AgoraRTCProvider>
+          }
+        />
       </Routes>
     </Router>
   );
