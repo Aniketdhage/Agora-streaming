@@ -30,6 +30,7 @@ function AgoraHosting() {
   const [isAudioPubed, setIsAudioPubed] = useState(false);
   const [isVideoPubed, setIsVideoPubed] = useState(false);
   const [isVideoSubed, setIsVideoSubed] = useState(false);
+  const [inputToken, setInputToken] = useState('');
 
   const turnOnCamera = async (flag) => {
     flag = flag ?? !isVideoOn;
@@ -78,7 +79,8 @@ function AgoraHosting() {
       // token.current || null,
       'cd060fa6a6f74f60819fca04f7ff35e4',
       'ljnhosting',
-      '007eJxTYFihxnxw76o25aprneduuE4rWJC5JJt9SfuOL46yXE3GFw4qMCSnGJgZpCWaJZqlmZukmRlYGFqmJScamKSZp6UZm6aapIW7pDUEMjIY2BoyMjJAIIjPxZCTlZeRX1ySmZfOwAAAKyshcQ==',
+      // '007eJxSYODX508K6FyqLWEy8f5tOQnTvy%2B%2FdnaqTTrb%2BTPbMuf8Ti8FhuQUAzODtESzRLM0c5M0MwMLQ8u05EQDkzTztDRj01STDoOAtIZARobKCV3MjAwQCOJzMeRk5WXkF5dk5qUzMxgZGQMCAAD%2F%2Fz2BIik%3D',
+      inputToken,
       null
     );
     setIsJoined(true);
@@ -130,41 +132,114 @@ function AgoraHosting() {
   };
 
   return (
-    <>
-      <h1>Host side</h1>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+      }}
+    >
+      <h1>
+        <b>LJN</b> Host side
+      </h1>
       <div className="left-side">
-        <h3>Please check you camera / microphone!</h3>
-        <div className="buttons">
-          <button
-            onClick={() => turnOnCamera()}
-            className={isVideoOn ? 'button-on' : ''}
-          >
-            Turn {isVideoOn ? 'off' : 'on'} camera
-          </button>
-          <button
-            onClick={() => turnOnMicrophone()}
-            className={isAudioOn ? 'button-on' : ''}
-          >
-            Turn {isAudioOn ? 'off' : 'on'} Microphone
-          </button>
-        </div>
+        {isVideoPubed && <h3>Please check you camera / microphone!</h3>}
 
-        <div className="buttons">
-          <button
-            onClick={publishVideo}
-            className={isVideoPubed ? 'button-on' : ''}
+        {isVideoPubed && (
+          <div
+            className="buttons"
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              width: '100%',
+              justifyContent: 'space-between',
+            }}
           >
-            Host streaming
-          </button>
+            <button
+              onClick={() => turnOnCamera()}
+              className={isVideoOn ? 'button-on' : ''}
+              style={{
+                padding: '10px',
+                borderRadius: '4px',
+              }}
+            >
+              Turn {isVideoOn ? 'off' : 'on'} camera
+            </button>
+            <button
+              onClick={() => turnOnMicrophone()}
+              className={isAudioOn ? 'button-on' : ''}
+              style={{
+                padding: '10px',
+                borderRadius: '4px',
+              }}
+            >
+              Turn {isAudioOn ? 'off' : 'on'} Microphone
+            </button>
+          </div>
+        )}
+        {!isVideoPubed && (
+          <div>
+            <input
+              type="text"
+              placeholder="Please enter agora token"
+              value={inputToken}
+              onChange={(e) => setInputToken(e.target.value)}
+              style={{
+                padding: '12px',
+                marginBottom: '16px',
+              }}
+            />
+          </div>
+        )}
 
-          <button onClick={leaveChannel}>Leave Channel</button>
+        <div
+          className="buttons"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}
+        >
+          {!isVideoPubed ? (
+            <button
+              onClick={publishVideo}
+              className={isVideoPubed ? 'button-on' : ''}
+              disabled={inputToken ? false : true}
+              style={{
+                margin: '0px auto',
+              }}
+            >
+              Host streaming
+            </button>
+          ) : (
+            <button
+              onClick={leaveChannel}
+              style={{
+                margin: '12px 0px',
+                width: '100%',
+                padding: '10px',
+                border: 'none',
+                backgroundColor: 'red',
+                color: 'white',
+              }}
+            >
+              Leave Channel
+            </button>
+          )}
         </div>
       </div>
-      <div className="right-side">
+      <div
+        className="right-side"
+        style={{
+          height: '100%',
+          margin: 'auto 0px',
+        }}
+      >
         <video id="camera-video" hidden={isVideoOn ? false : true}></video>
         <video id="remote-video" hidden={isVideoSubed ? false : true}></video>
       </div>
-    </>
+    </div>
   );
 }
 

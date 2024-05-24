@@ -98,6 +98,7 @@ function AgoraWeb() {
     if (mediaType === 'audio') {
       const remoteTrack = await client.subscribe(user, mediaType);
       remoteTrack.play();
+      remoteTrack.getVideoElementVisibleStatus();
     }
   };
 

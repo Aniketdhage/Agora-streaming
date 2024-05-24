@@ -265,8 +265,7 @@ function AgoraAudience() {
     if (!channel.current) {
       channel.current = 'ljnhosting';
     }
-    const audioTrack = await client.createMicrophoneAudioTrack();
-    setLocalAudioTrack(audioTrack);
+
     client
       .setClientRole('audience')
       .then(() => {
@@ -314,11 +313,16 @@ function AgoraAudience() {
     if (mediaType === 'video') {
       const remoteTrack = await client.subscribe(user, mediaType);
       remoteTrack.play('remote-video');
+      remoteTrack.getVideoElementVisibleStatus('remote-video');
       setIsVideoSubed(true);
     }
     if (mediaType === 'audio') {
       const remoteTrack = await client.subscribe(user, mediaType);
-      remoteTrack.play();
+      if (isAudioEnabled) {
+        remoteTrack.stop();
+      } else {
+        remoteTrack.stop();
+      }
     }
   };
 
@@ -345,8 +349,8 @@ function AgoraAudience() {
 
   const toggleAudio = async () => {
     // if (isAudioEnabled) {
-    await localAudioTrack.setEnabled(false);
-    setIsAudioEnabled(false);
+    onUserPublish('', 'audio');
+    setIsAudioEnabled(!isAudioEnabled);
     console.log('__________local audio track', localAudioTrack);
     // } else {
     //   await localAudioTrack.setEnabled(true);
